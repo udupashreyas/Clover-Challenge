@@ -23,32 +23,21 @@ function alertUser(divObj) {
 	alert("You have input " + text + ". The color is " + divObj.style.background);
 }
 
+var speed = Math.random();
+var direction = 1;
+var interval = setInterval(moveShape,10);
 function moveShape(divObj) {
-	var xvelocity = Math.random();
-	var yvelocity = Math.random();
+	var i = 0;
 	var shapes = document.getElementsByClassName('shape');
-	while(shapes.length > 0){
-		origx = shapes[0].style.left;
-        shapes[0].style.left = origx + xvelocity + "px";
-        origy = shapes[0].style.top;
-        shapes[0].style.top = origy + yvelocity + "px";
+	for(i = 0; i < shapes.length; i++){
+        var boxLeftPos = shapes[i].offsetLeft,
+            boxRightPos = boxLeftPos + shapes[i].offsetWidth;
+        if (boxRightPos > document.body.offsetWidth) {
+            direction = -1;
+        }
+        if (boxLeftPos < 0) {
+            direction = 1;
+        }
+        shapes[i].style.left = (boxLeftPos + speed * direction) + 'px';
     }
 }
-
-// var xvelocity = Math.random().toFixed();
-// var yvelocity = Math.random().toFixed();
-// function moveShape() {
-// 	var shapes = document.getElementsByClassName('shape');
-// 	while(shapes.length > 0){
-// 		origx = shapes[0].style.left;
-// 		origx = origx.substring(0,origx.length-2);
-// 		console.log(origx);
-// 		console.log(xvelocity);
-//         shapes[0].style.left = (parseInt(origx) + xvelocity).toString() + "px";
-//         console.log(shapes[0].style.left);
-//         origy = shapes[0].style.top;
-//         origy = origy.substring(0,origy.length-2);
-//         shapes[0].style.top = (parseInt(origy) + yvelocity).toString() + "px";
-//     }
-//     setTimeout(moveShape, 10);
-// }
